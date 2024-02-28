@@ -9,7 +9,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
-import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
@@ -42,8 +41,7 @@ class NewsFragment : Fragment(),NewsAdapter.OnClickListener {
     ): View {
         // Inflate the layout for this fragment
         _binding = FragmentNewsBinding.inflate(inflater, container, false)
-        val view = binding.root
-        return view
+        return binding.root
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
@@ -110,11 +108,6 @@ class NewsFragment : Fragment(),NewsAdapter.OnClickListener {
                 }
             }
         }
-    }
-    companion object {
-        @JvmStatic
-        fun newInstance(param1: String) =
-            NewsFragment()
     }
 
     override fun onClick(position: Int, model: ArticlesItem?) {

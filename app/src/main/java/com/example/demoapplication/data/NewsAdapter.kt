@@ -40,7 +40,6 @@ class NewsAdapter(private var onClickListener: OnClickListener?) :
 
     override fun onBindViewHolder(holder: NewsAdapter.ViewHolder, position: Int) {
         holder.bind(getItem(position))
-        holder.setIsRecyclable(true)
     }
 
     fun setOnClickListener(onClickListener: OnClickListener?) {
