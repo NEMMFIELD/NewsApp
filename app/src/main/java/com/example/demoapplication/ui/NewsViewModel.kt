@@ -16,6 +16,7 @@ class NewsViewModel @Inject constructor(
     topRatedInteractor: GetTopHeadLinesInteractor,
     private val everythingInteractor: EverythingInteractor
 ) : ViewModel() {
+    var poisk:String = ""
     var newsList = topRatedInteractor.invoke().cachedIn(viewModelScope)
     fun load(q: String): Flow<PagingData<ArticlesItem>> {
         newsList = everythingInteractor.invoke(q).cachedIn(viewModelScope)

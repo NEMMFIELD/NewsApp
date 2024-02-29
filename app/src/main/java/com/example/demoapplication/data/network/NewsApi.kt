@@ -25,13 +25,3 @@ interface NewsApi {
         @Query("apiKey")apiKey: String
     ):Response<News>
 }
-
-/*object APIClient {
-    val moshi = Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
-    fun getClient(): NewsApi =
-        Retrofit.Builder()
-            .baseUrl(Util.API_BASE_URL)
-            .addConverterFactory(MoshiConverterFactory.create(moshi))
-            .build()
-            .create(NewsApi::class.java)
-}*/

@@ -26,14 +26,13 @@ import com.example.demoapplication.data.model.ArticlesItem
 import com.example.demoapplication.databinding.FragmentNewsBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
-const val TEXT_KEY = "key"
+
 @AndroidEntryPoint
-class NewsFragment : Fragment(),NewsAdapter.OnClickListener {
+class NewsFragment : Fragment(), NewsAdapter.OnClickListener {
     private var _binding: FragmentNewsBinding? = null
     private val binding get() = _binding!!
     private lateinit var adapter: NewsAdapter
     private val viewModel: NewsViewModel by viewModels()
-    private var searchingText:String = ""
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -42,16 +41,6 @@ class NewsFragment : Fragment(),NewsAdapter.OnClickListener {
         // Inflate the layout for this fragment
         _binding = FragmentNewsBinding.inflate(inflater, container, false)
         return binding.root
-    }
-
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-        outState.putString(TEXT_KEY,searchingText)
-    }
-
-    override fun onViewStateRestored(savedInstanceState: Bundle?) {
-        super.onViewStateRestored(savedInstanceState)
-        searchingText = savedInstanceState?.getString(TEXT_KEY).toString()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -68,10 +57,10 @@ class NewsFragment : Fragment(),NewsAdapter.OnClickListener {
             }
 
             override fun afterTextChanged(s: Editable?) {
-                searchingText = s.toString()
+                viewModel.poisk = s.toString()
                 viewLifecycleOwner.lifecycleScope.launch {
                     repeatOnLifecycle(Lifecycle.State.STARTED) {
-                        viewModel.load(searchingText)
+                        viewModel.load(viewModel.poisk)
                         viewModel.newsList.collect {
                             adapter.submitData(it)
                         }
@@ -80,10 +69,10 @@ class NewsFragment : Fragment(),NewsAdapter.OnClickListener {
             }
         })
         lifecycleScope.launch {
-                adapter.loadStateFlow.collect {
-                    val state = it.refresh
-                    binding.prgBarNews.isVisible = state is LoadState.Loading
-                }
+            adapter.loadStateFlow.collect {
+                val state = it.refresh
+                binding.prgBarNews.isVisible = state is LoadState.Loading
+            }
         }
     }
 
@@ -94,7 +83,7 @@ class NewsFragment : Fragment(),NewsAdapter.OnClickListener {
 
     private fun initRecycler() = with(binding) {
         recyclerView.layoutManager = LinearLayoutManager(context)
-        adapter = NewsAdapter(onClickListener = this@NewsFragment )
+        adapter = NewsAdapter(onClickListener = this@NewsFragment)
         recyclerView.adapter = adapter.withLoadStateFooter(LoadMoreAdapter { adapter.retry() })
         val divider = DividerItemDecoration(recyclerView.context, DividerItemDecoration.VERTICAL)
         ContextCompat.getDrawable(requireContext(), R.drawable.line_divider)
@@ -112,7 +101,7 @@ class NewsFragment : Fragment(),NewsAdapter.OnClickListener {
 
     override fun onClick(position: Int, model: ArticlesItem?) {
         println("I am here $position")
-        val intent= Intent(Intent.ACTION_VIEW, Uri.parse(model?.url))
+        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(model?.url))
         requireContext().startActivity(intent)
     }
 }
