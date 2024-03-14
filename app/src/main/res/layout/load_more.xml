@@ -8,28 +8,29 @@
         android:id="@+id/prgBarLoadMore"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="@dimen/progress_bar_margintop"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
         android:id="@+id/textError"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Something's wrong"
-        app:layout_constraintTop_toBottomOf="@id/prgBarLoadMore"
+        android:text="@string/error_loading"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintTop_toBottomOf="@id/prgBarLoadMore" />
+
     <Button
         android:id="@+id/btnRetry"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Retry"
         android:drawableEnd="@drawable/baseline_autorenew_24"
+        android:text="@string/retry_button"
         app:drawableTint="@color/white"
-        app:layout_constraintTop_toBottomOf="@id/textError"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
-
+        app:layout_constraintTop_toBottomOf="@id/textError" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

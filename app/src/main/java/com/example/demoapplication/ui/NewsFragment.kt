@@ -19,7 +19,10 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.paging.LoadState
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.work.ExistingPeriodicWorkPolicy
+import androidx.work.WorkManager
 import com.example.demoapplication.R
+import com.example.demoapplication.background.NewsWorkerRepository
 import com.example.demoapplication.data.LoadMoreAdapter
 import com.example.demoapplication.data.NewsAdapter
 import com.example.demoapplication.data.model.ArticlesItem
@@ -33,6 +36,7 @@ class NewsFragment : Fragment(), NewsAdapter.OnClickListener {
     private val binding get() = _binding!!
     private lateinit var adapter: NewsAdapter
     private val viewModel: NewsViewModel by viewModels()
+    private val newsWorkerRepository = NewsWorkerRepository()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -61,7 +65,7 @@ class NewsFragment : Fragment(), NewsAdapter.OnClickListener {
                 viewLifecycleOwner.lifecycleScope.launch {
                     repeatOnLifecycle(Lifecycle.State.STARTED) {
                         viewModel.load(viewModel.poisk)
-                        viewModel.newsList.collect {
+                        viewModel.newsList?.collect {
                             adapter.submitData(it)
                         }
                     }
@@ -74,11 +78,17 @@ class NewsFragment : Fragment(), NewsAdapter.OnClickListener {
                 binding.prgBarNews.isVisible = state is LoadState.Loading
             }
         }
+        WorkManager.getInstance(requireContext()).enqueueUniquePeriodicWork(
+            "NewsWorker",
+            ExistingPeriodicWorkPolicy.KEEP,
+            newsWorkerRepository.periodicWork
+        )
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+        WorkManager.getInstance(requireContext()).cancelAllWork()
     }
 
     private fun initRecycler() = with(binding) {
@@ -92,7 +102,7 @@ class NewsFragment : Fragment(), NewsAdapter.OnClickListener {
 
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.newsList.collect {
+                viewModel.newsList?.collect {
                     adapter.submitData(it)
                 }
             }

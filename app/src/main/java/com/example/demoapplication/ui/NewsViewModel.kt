@@ -13,13 +13,21 @@ import javax.inject.Inject
 
 @HiltViewModel
 class NewsViewModel @Inject constructor(
-    topRatedInteractor: GetTopHeadLinesInteractor,
+    private val topRatedInteractor: GetTopHeadLinesInteractor,
     private val everythingInteractor: EverythingInteractor
 ) : ViewModel() {
     var poisk:String = ""
-    var newsList = topRatedInteractor.invoke().cachedIn(viewModelScope)
+    var newsList:Flow<PagingData<ArticlesItem>>? = null
+    init {
+        loadTopNews()
+    }
+
+    private fun loadTopNews():Flow<PagingData<ArticlesItem>> {
+        newsList = topRatedInteractor.invoke().cachedIn(viewModelScope)
+        return newsList as Flow<PagingData<ArticlesItem>>
+    }
     fun load(q: String): Flow<PagingData<ArticlesItem>> {
         newsList = everythingInteractor.invoke(q).cachedIn(viewModelScope)
-        return newsList
+        return newsList as Flow<PagingData<ArticlesItem>>
     }
 }

@@ -1,39 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    android:padding="5dp"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:background="?selectableItemBackground"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    android:background="?selectableItemBackground"
+    android:padding="@dimen/general_padding">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/card"
-        android:layout_width="120dp"
-        android:layout_height="120dp"
+        android:layout_width="@dimen/image_width"
+        android:layout_height="@dimen/image_height"
         android:clipToPadding="true"
-        app:cardCornerRadius="8dp"
+        app:cardCornerRadius="@dimen/image_radius"
         app:cardElevation="0dp"
         app:cardPreventCornerOverlap="false"
         app:cardUseCompatPadding="false"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
-    <ImageView
-        android:id="@+id/imageUrl"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scaleType="centerCrop"
-        tools:srcCompat="@tools:sample/avatars" />
+
+        <ImageView
+            android:id="@+id/imageUrl"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            tools:srcCompat="@tools:sample/avatars" />
     </androidx.cardview.widget.CardView>
 
     <TextView
         android:id="@+id/textTitle"
-        android:layout_width="210dp"
+        android:layout_width="@dimen/text_news_width"
         android:layout_height="wrap_content"
-        android:textSize="13sp"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginStart="@dimen/text_news_margin_start"
+        android:layout_marginTop="@dimen/text_news_margin_top"
+        android:textSize="@dimen/text_news_size"
         app:layout_constraintStart_toEndOf="@+id/card"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -41,9 +41,9 @@
         android:id="@+id/textUrl"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
+        android:layout_marginStart="@dimen/text_news_margin_start"
+        android:textSize="@dimen/news_url_size"
         android:textStyle="italic"
-        android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/card"
         app:layout_constraintTop_toBottomOf="@+id/textTitle" />

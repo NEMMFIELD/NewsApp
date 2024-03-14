@@ -5,8 +5,9 @@ import androidx.paging.PagingState
 import com.example.demoapplication.data.model.ArticlesItem
 import com.example.demoapplication.domain.NewsRepository
 import retrofit2.HttpException
+import javax.inject.Inject
 
-class EverythingPagingSource(private val repository: NewsRepository, private val q: String) :
+class EverythingPagingSource (private val repository: NewsRepository, private val q: String) :
     PagingSource<Int, ArticlesItem>() {
     override fun getRefreshKey(state: PagingState<Int, ArticlesItem>): Int? {
         val anchorPosition = state.anchorPosition ?: return null

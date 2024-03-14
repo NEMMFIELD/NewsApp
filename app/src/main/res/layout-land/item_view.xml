@@ -10,10 +10,10 @@
 
     <androidx.cardview.widget.CardView
         android:id="@+id/card"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
+        android:layout_width="@dimen/image_width"
+        android:layout_height="@dimen/image_height"
         android:clipToPadding="true"
-        app:cardCornerRadius="8dp"
+        app:cardCornerRadius="@dimen/image_radius"
         app:cardElevation="0dp"
         app:cardPreventCornerOverlap="false"
         app:cardUseCompatPadding="false"
@@ -31,9 +31,9 @@
         android:id="@+id/textTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="13sp"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="15dp"
+        android:textSize="@dimen/text_news_size"
+        android:layout_marginStart="@dimen/text_news_margin_start"
+        android:layout_marginTop="@dimen/text_news_margin_top"
         app:layout_constraintStart_toEndOf="@+id/card"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -41,9 +41,9 @@
         android:id="@+id/textUrl"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
+        android:layout_marginStart="@dimen/text_news_margin_start"
         android:textStyle="italic"
-        android:textSize="12sp"
+        android:textSize="@dimen/news_url_size"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/card"
         app:layout_constraintTop_toBottomOf="@+id/textTitle" />

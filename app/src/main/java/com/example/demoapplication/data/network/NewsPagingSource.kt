@@ -6,8 +6,9 @@ import com.example.demoapplication.data.model.ArticlesItem
 import com.example.demoapplication.domain.NewsRepository
 import retrofit2.HttpException
 import java.lang.Exception
+import javax.inject.Inject
 
-class NewsPagingSource(private val repository: NewsRepository) : PagingSource<Int, ArticlesItem>() {
+class NewsPagingSource @Inject constructor(private val repository: NewsRepository) : PagingSource<Int, ArticlesItem>() {
     override fun getRefreshKey(state: PagingState<Int, ArticlesItem>): Int? {
         val anchorPosition = state.anchorPosition ?: return null
         val page = state.closestPageToPosition(anchorPosition) ?: return null

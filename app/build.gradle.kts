@@ -44,6 +44,9 @@ kapt {
 }
 
 dependencies {
+    implementation("androidx.hilt:hilt-common:1.2.0")
+    implementation("androidx.hilt:hilt-work:1.2.0")
+    val work_version = "2.9.0"
     implementation("androidx.core:core-ktx:1.12.0")
     implementation("androidx.appcompat:appcompat:1.6.1")
     implementation("com.google.android.material:material:1.11.0")
@@ -72,4 +75,11 @@ dependencies {
     kapt ("com.google.dagger:hilt-compiler:2.50")
     //paging
     implementation("androidx.paging:paging-runtime-ktx:3.2.1")
+    //work manager
+    implementation("androidx.work:work-runtime-ktx:$work_version")
+    implementation("androidx.hilt:hilt-work:1.2.0")
+    // When using Kotlin.
+    kapt("androidx.hilt:hilt-compiler:1.2.0")
+    // When using Java.
+    annotationProcessor("androidx.hilt:hilt-compiler:1.2.0")
 }

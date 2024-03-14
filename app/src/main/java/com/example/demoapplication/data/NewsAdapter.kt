@@ -42,10 +42,6 @@ class NewsAdapter(private var onClickListener: OnClickListener?) :
         holder.bind(getItem(position))
     }
 
-    fun setOnClickListener(onClickListener: OnClickListener?) {
-        this.onClickListener = onClickListener
-    }
-
     interface OnClickListener {
         fun onClick(position: Int, model: ArticlesItem?)
     }

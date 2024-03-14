@@ -7,10 +7,10 @@ import javax.inject.Inject
 
 class RemoteDataSource @Inject constructor(private val newsApi: NewsApi) {
     suspend fun getTopHeadLines(page:Int): Response<News> {
-        return newsApi.getTopNews("us", page, Util.API_KEY)
+        return newsApi.getTopNews("us", page,)
     }
 
     suspend fun getEverything(q:String,page:Int):Response<News> {
-        return newsApi.getEverything(q,page,Util.API_KEY)
+        return newsApi.getEverything(q,page)
     }
 }
